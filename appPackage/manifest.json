@@ -1,0 +1,42 @@
+{
+    "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.24/MicrosoftTeams.schema.json",
+    "manifestVersion": "1.24",
+    "version": "${{APP_VERSION}}",
+    "id": "${{TEAMS_APP_ID}}",
+    "developer": {
+        "name": "Alpha Analyzer",
+        "websiteUrl": "https://alphaanalyzer-mcp.azurewebsites.net",
+        "privacyUrl": "https://alphaanalyzer-mcp.azurewebsites.net/privacy",
+        "termsOfUseUrl": "https://alphaanalyzer-mcp.azurewebsites.net/terms"
+    },
+    "name": {
+        "short": "Alpha Analyzer",
+        "full": "Alpha Analyzer - Financial Market Data"
+    },
+    "description": {
+        "short": "Real-time stock quotes, portfolio dashboards, and market analysis.",
+        "full": "Alpha Analyzer provides real-time stock quotes, analyst recommendations, price targets, earnings data, news sentiment, technical indicators, and interactive portfolio dashboards. All data is sourced from Finnhub.io with the API key secured server-side."
+    },
+    "icons": {
+        "color": "color.png",
+        "outline": "outline.png"
+    },
+    "accentColor": "#0078D4",
+    "composeExtensions": [],
+    "permissions": [
+        "identity",
+        "messageTeamMembers"
+    ],
+    "copilotAgents": {
+        "declarativeAgents": [
+            {
+                "id": "declarativeAgent",
+                "file": "declarativeAgent.json"
+            }
+        ]
+    },
+    "validDomains": [
+        "alphaanalyzer-mcp.azurewebsites.net",
+        "portfolio-mcp.azurewebsites.net"
+    ]
+}

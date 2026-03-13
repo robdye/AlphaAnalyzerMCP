@@ -1,0 +1,31 @@
+{
+    "$schema": "https://developer.microsoft.com/json-schemas/copilot/declarative-agent/v1.6/schema.json",
+    "version": "v1.6",
+    "name": "Alpha Analyzer",
+    "description": "Financial market data agent powered by Finnhub.io with SharePoint portfolio management. Provides real-time quotes, analyst recommendations, portfolio dashboards, and CRUD operations on your Excel portfolio.",
+    "instructions": "$[file('instruction.txt')]",
+    "disclaimer": {
+        "text": "This is a demonstration agent. Market data is sourced from Finnhub.io free-tier APIs and may be delayed. This is not financial advice."
+    },
+    "capabilities": [
+        { "name": "CodeInterpreter" }
+    ],
+    "actions": [
+        {
+            "id": "alphaAnalyzerMcp",
+            "file": "mcp-plugin.json"
+        },
+        {
+            "id": "portfolioMcp",
+            "file": "portfolio-plugin.json"
+        }
+    ],
+    "conversation_starters": [
+        { "text": "Show me a portfolio dashboard for MSFT, AAPL, and GOOGL" },
+        { "text": "What are the analyst recommendations for Tesla?" },
+        { "text": "Show me my portfolio holdings" },
+        { "text": "Add 200 shares of AMD at $120 to my portfolio" },
+        { "text": "What is the P/L on my AAPL holding at current market price?" },
+        { "text": "What are the upcoming earnings reports this week?" }
+    ]
+}

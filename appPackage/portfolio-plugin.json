@@ -1,0 +1,96 @@
+{
+    "$schema": "https://developer.microsoft.com/json-schemas/copilot/plugin/v2.1/schema.json",
+    "schema_version": "v2.4",
+    "name_for_human": "Portfolio Manager MCP",
+    "description_for_human": "Read, add, update, and remove stock holdings from a SharePoint Excel portfolio",
+    "namespace": "portfolio",
+    "functions": [
+        {
+            "name": "get_portfolio",
+            "description": "Get all holdings from the SharePoint portfolio Excel file. Returns company name, ticker, sector, shares, cost per share, total cost, and current price.",
+            "x-isConsequential": false,
+            "parameters": {
+                "type": "object",
+                "properties": {},
+                "required": []
+            }
+        },
+        {
+            "name": "get_holding",
+            "description": "Get a single holding from the portfolio by ticker symbol.",
+            "x-isConsequential": false,
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "ticker": { "type": "string", "description": "Stock ticker symbol (e.g. AAPL, MSFT)" }
+                },
+                "required": ["ticker"]
+            }
+        },
+        {
+            "name": "add_holding",
+            "description": "Add a new stock holding to the SharePoint portfolio.",
+            "x-isConsequential": true,
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "company": { "type": "string", "description": "Company name" },
+                    "ticker": { "type": "string", "description": "Stock ticker symbol" },
+                    "sector": { "type": "string", "description": "Industry sector" },
+                    "shares": { "type": "integer", "description": "Number of shares" },
+                    "cost_per_share": { "type": "number", "description": "Purchase price per share in USD" },
+                    "website": { "type": "string", "description": "Company website URL" },
+                    "media_press_release": { "type": "string", "description": "Media/press release URL" }
+                },
+                "required": ["company", "ticker"]
+            }
+        },
+        {
+            "name": "update_holding",
+            "description": "Update an existing holding in the portfolio. Only provided fields are changed. Total cost is recalculated automatically.",
+            "x-isConsequential": true,
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "ticker": { "type": "string", "description": "Ticker of the holding to update" },
+                    "shares": { "type": "integer", "description": "New number of shares" },
+                    "cost_per_share": { "type": "number", "description": "New cost per share in USD" },
+                    "sector": { "type": "string", "description": "New sector" },
+                    "website": { "type": "string", "description": "New website URL" },
+                    "media_press_release": { "type": "string", "description": "New media/press release URL" }
+                },
+                "required": ["ticker"]
+            }
+        },
+        {
+            "name": "remove_holding",
+            "description": "Remove a stock holding from the portfolio by ticker. This cannot be undone.",
+            "x-isConsequential": true,
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "ticker": { "type": "string", "description": "Ticker of the holding to remove" }
+                },
+                "required": ["ticker"]
+            }
+        }
+    ],
+    "runtimes": [
+        {
+            "type": "RemoteMCPServer",
+            "run_for_functions": [
+                "get_portfolio",
+                "get_holding",
+                "add_holding",
+                "update_holding",
+                "remove_holding"
+            ],
+            "spec": {
+                "url": "${{PORTFOLIO_MCP_URL}}"
+            },
+            "auth": {
+                "type": "None"
+            }
+        }
+    ]
+}

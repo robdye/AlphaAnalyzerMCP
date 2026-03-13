@@ -1,0 +1,17 @@
+# ---- Dependencies ----
+__pycache__/
+*.pyc
+*.pyo
+.git/
+.gitignore
+.azure/
+logs/
+logs2/
+docs/
+*.md
+!requirements.txt
+Deploy-AlphaAnalyzerMCP.ps1
+publish.zip
+.vscode/
+.env
+*.log

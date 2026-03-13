@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+
+# .NET build artifacts (not a .NET project)
+bin/
+obj/
+*.csproj
+*.sln
+*.slnx
+
+# IDE
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+
+# Environment / secrets
+.env
+
+# Deployment artefacts
+publish/
+publish.zip
+# React UI build
+ui/portfolio-dashboard/node_modules/
+ui/portfolio-dashboard/dist/
+
+# Build caches
+*.tsbuildinfo
+
+# Diagnostic archives
+logs/
+logs2/
+*.zip
+
+# M365 Agents Toolkit
+appPackage/build/
+env/.env.*.user

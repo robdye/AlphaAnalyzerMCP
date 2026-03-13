@@ -1,0 +1,334 @@
+{
+    "$schema": "https://developer.microsoft.com/json-schemas/copilot/plugin/v2.1/schema.json",
+    "schema_version": "v2.4",
+    "name_for_human": "Alpha Analyzer MCP",
+    "description_for_human": "Financial market data and portfolio analysis powered by Finnhub.io",
+    "namespace": "alphaanalyzer",
+    "functions": [
+        {
+            "name": "show_portfolio_dashboard",
+            "description": "Show a Portfolio Dashboard for a list of ticker symbols. Displays current price, daily change, sparkline charts, and latest news headlines. Returns an interactive widget.",
+            "x-isConsequential": false,
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "tickers": {
+                        "type": "array",
+                        "items": { "type": "string" },
+                        "description": "List of stock ticker symbols, e.g. ['AAPL', 'MSFT', 'GOOGL']"
+                    },
+                    "range": {
+                        "type": "string",
+                        "default": "1M",
+                        "description": "News lookback period. One of: 1D, 1W, 1M, 3M, 6M, 1Y"
+                    }
+                },
+                "required": ["tickers"]
+            }
+        },
+        {
+            "name": "quote",
+            "description": "Get real-time stock quote including current price, change, percent change, high, low, open, and previous close.",
+            "x-isConsequential": false,
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "symbol": { "type": "string", "description": "Stock ticker symbol" }
+                },
+                "required": ["symbol"]
+            }
+        },
+        {
+            "name": "symbol_search",
+            "description": "Look up a stock symbol by company name. Returns matching ticker symbols, descriptions, and exchange information.",
+            "x-isConsequential": false,
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "query": { "type": "string", "description": "Company name or partial name to search" }
+                },
+                "required": ["query"]
+            }
+        },
+        {
+            "name": "company_profile",
+            "description": "Get company profile including name, market capitalisation, industry, IPO date, logo, and website.",
+            "x-isConsequential": false,
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "symbol": { "type": "string" }
+                },
+                "required": ["symbol"]
+            }
+        },
+        {
+            "name": "company_peers",
+            "description": "Get company peers - a list of similar companies in the same industry and sub-industry.",
+            "x-isConsequential": false,
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "symbol": { "type": "string" }
+                },
+                "required": ["symbol"]
+            }
+        },
+        {
+            "name": "basic_financials",
+            "description": "Get basic financial data including revenue, earnings, margins, and ratios.",
+            "x-isConsequential": false,
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "symbol": { "type": "string" },
+                    "metric": { "type": "string", "default": "all" }
+                },
+                "required": ["symbol"]
+            }
+        },
+        {
+            "name": "recommendation_trends",
+            "description": "Get analyst recommendation trends (buy, hold, sell, strong buy, strong sell) for a stock.",
+            "x-isConsequential": false,
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "symbol": { "type": "string" }
+                },
+                "required": ["symbol"]
+            }
+        },
+        {
+            "name": "price_target",
+            "description": "Get consensus analyst price target including high, low, mean, and median targets.",
+            "x-isConsequential": false,
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "symbol": { "type": "string" }
+                },
+                "required": ["symbol"]
+            }
+        },
+        {
+            "name": "earnings_surprises",
+            "description": "Get company earnings surprises showing actual vs estimated EPS for recent quarters.",
+            "x-isConsequential": false,
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "symbol": { "type": "string" }
+                },
+                "required": ["symbol"]
+            }
+        },
+        {
+            "name": "company_news",
+            "description": "Get latest company news articles within a date range.",
+            "x-isConsequential": false,
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "symbol": { "type": "string" },
+                    "from_date": { "type": "string", "description": "Start date YYYY-MM-DD" },
+                    "to_date": { "type": "string", "description": "End date YYYY-MM-DD" }
+                },
+                "required": ["symbol", "from_date", "to_date"]
+            }
+        },
+        {
+            "name": "market_news",
+            "description": "Get general market news by category: general, forex, crypto, merger.",
+            "x-isConsequential": false,
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "category": { "type": "string", "default": "general" }
+                },
+                "required": []
+            }
+        },
+        {
+            "name": "news_sentiment",
+            "description": "Get company news sentiment and buzz statistics from recent articles.",
+            "x-isConsequential": false,
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "symbol": { "type": "string" }
+                },
+                "required": ["symbol"]
+            }
+        },
+        {
+            "name": "sec_filings",
+            "description": "Get recent SEC filings for a company (10-K, 10-Q, 8-K, etc.).",
+            "x-isConsequential": false,
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "symbol": { "type": "string" }
+                },
+                "required": ["symbol"]
+            }
+        },
+        {
+            "name": "earnings_calendar",
+            "description": "Get upcoming earnings calendar in a date range.",
+            "x-isConsequential": false,
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "from_date": { "type": "string" },
+                    "to_date": { "type": "string" }
+                },
+                "required": ["from_date", "to_date"]
+            }
+        },
+        {
+            "name": "ipo_calendar",
+            "description": "Get upcoming IPO calendar in a date range.",
+            "x-isConsequential": false,
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "from_date": { "type": "string" },
+                    "to_date": { "type": "string" }
+                },
+                "required": ["from_date", "to_date"]
+            }
+        },
+        {
+            "name": "technical_indicator",
+            "description": "Get technical indicator values (SMA, EMA, RSI, MACD, etc.) for a stock.",
+            "x-isConsequential": false,
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "symbol": { "type": "string" },
+                    "resolution": { "type": "string" },
+                    "from_timestamp": { "type": "integer" },
+                    "to_timestamp": { "type": "integer" },
+                    "indicator": { "type": "string" },
+                    "timeperiod": { "type": "integer", "default": "14" }
+                },
+                "required": ["symbol", "resolution", "from_timestamp", "to_timestamp", "indicator"]
+            }
+        },
+        {
+            "name": "stock_candles",
+            "description": "Get stock candles (OHLCV) for a date range. Resolution: 1, 5, 15, 30, 60, D, W, M.",
+            "x-isConsequential": false,
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "symbol": { "type": "string" },
+                    "resolution": { "type": "string" },
+                    "from_timestamp": { "type": "integer" },
+                    "to_timestamp": { "type": "integer" }
+                },
+                "required": ["symbol", "resolution", "from_timestamp", "to_timestamp"]
+            }
+        },
+        {
+            "name": "insider_transactions",
+            "description": "Get insider transactions (buys and sells by company insiders) for a stock.",
+            "x-isConsequential": false,
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "symbol": { "type": "string" }
+                },
+                "required": ["symbol"]
+            }
+        },
+        {
+            "name": "pattern_recognition",
+            "description": "Get recognised candlestick patterns for a stock. Resolution: D, W, M.",
+            "x-isConsequential": false,
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "symbol": { "type": "string" },
+                    "resolution": { "type": "string" }
+                },
+                "required": ["symbol", "resolution"]
+            }
+        },
+        {
+            "name": "market_status",
+            "description": "Get the current trading status of major global exchanges.",
+            "x-isConsequential": false,
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "exchange": { "type": "string" }
+                },
+                "required": ["exchange"]
+            }
+        }
+    ],
+    "runtimes": [
+        {
+            "type": "RemoteMCPServer",
+            "run_for_functions": [
+                "show_portfolio_dashboard",
+                "quote",
+                "symbol_search",
+                "company_profile",
+                "company_peers",
+                "basic_financials",
+                "recommendation_trends",
+                "price_target",
+                "earnings_surprises",
+                "company_news",
+                "market_news",
+                "news_sentiment",
+                "sec_filings",
+                "earnings_calendar",
+                "ipo_calendar",
+                "technical_indicator",
+                "stock_candles",
+                "insider_transactions",
+                "pattern_recognition",
+                "market_status"
+            ],
+            "spec": {
+                "url": "${{MCP_SERVER_URL}}",
+                "mcp_tool_description": {
+                    "tools": [
+                        {
+                            "name": "show_portfolio_dashboard",
+                            "description": "Show a Portfolio Dashboard for a list of ticker symbols. Displays current price, daily change, sparkline charts, and latest news headlines.",
+                            "inputSchema": {
+                                "type": "object",
+                                "properties": {
+                                    "tickers": {
+                                        "type": "array",
+                                        "items": { "type": "string" }
+                                    },
+                                    "range": {
+                                        "default": "1M",
+                                        "type": "string"
+                                    }
+                                },
+                                "required": ["tickers"]
+                            },
+                            "_meta": {
+                                "openai/outputTemplate": "ui://alpha-analyser/portfolio-dashboard",
+                                "openai/widgetAccessible": true,
+                                "openai/toolInvocation/invoking": "Loading portfolio dashboard…",
+                                "openai/toolInvocation/invoked": "Portfolio dashboard ready.",
+                                "openai/resultCanProduceWidget": true
+                            }
+                        }
+                    ]
+                }
+            },
+            "auth": {
+                "type": "None"
+            }
+        }
+    ]
+}
